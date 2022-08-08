@@ -1,0 +1,22 @@
+{
+  "name": "zk-identity",
+  "version": "1.0.0",
+  "description": "A privacy-preserving Web3 identity",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eerkaijun/zk-identity.git"
+  },
+  "author": "Kai Jun Eer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eerkaijun/zk-identity/issues"
+  },
+  "homepage": "https://github.com/eerkaijun/zk-identity#readme",
+  "dependencies": {
+    "circomlib": "^2.0.5"
+  }
+}
