@@ -1,1 +1,10 @@
 node_modules/
+*_js
+*.r1cs
+input.json
+proof.json
+public.json
+verification_key.json
+witness.wtns
+*.ptau
+*.zkey
