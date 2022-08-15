@@ -1,6 +1,7 @@
 pragma circom 2.0.6;
 
 include "../node_modules/circomlib/circuits/eddsamimc.circom";
+include "../node_modules/circomlib/circuits/comparators.circom";
 
 template VerifySignature() {
 
@@ -19,6 +20,12 @@ template VerifySignature() {
     verifier.R8y <== R8y;
     verifier.S <== S;
     verifier.M <== M;
+
+    // constraint generation that M has to be larger than 600
+    component compare = GreaterThan(16); // 16 bits number comparison
+    compare.in[0] <== M;
+    compare.in[1] <== 600;
+    compare.out === 1;
 }
 
-component main {public [from_x, from_y, R8x, R8y, S, M]}= VerifySignature();
+component main {public [from_x, from_y, R8x, R8y, S, M]} = VerifySignature();

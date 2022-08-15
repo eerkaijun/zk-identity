@@ -23,8 +23,8 @@ describe("EdDSA MiMC test", function () {
         circuit = await wasm_tester(path.join(__dirname, "..", "circuits", "circuit.circom"));
     });
 
-    it("Sign a single number", async () => {
-        const msg = F.e(1234);
+    it("Signs number greater than 600", async () => {
+        const msg = F.e(900);
 
         // Generate a random public-private key pair
         const prvKey = Buffer.from("0001020304050607080900010203040506070809000102030405060708090001", "hex");
@@ -42,5 +42,30 @@ describe("EdDSA MiMC test", function () {
             S: signature.S,
             M: F.toObject(msg)}, true);
         await circuit.checkConstraints(w);
+    });
+
+    it("Reverts if number less than 600", async () => {
+        const msg = F.e(500);
+
+        // Generate a random public-private key pair
+        const prvKey = Buffer.from("0001020304050607080900010203040506070809000102030405060708090001", "hex");
+        const pubKey = eddsa.prv2pub(prvKey);
+
+        const signature = eddsa.signMiMC(prvKey, msg);
+
+        assert(eddsa.verifyMiMC(msg, signature, pubKey));
+
+        try {
+            await circuit.calculateWitness({
+                from_x: F.toObject(pubKey[0]),
+                from_y: F.toObject(pubKey[1]),
+                R8x: F.toObject(signature.R8[0]),
+                R8y: F.toObject(signature.R8[1]),
+                S: signature.S,
+                M: F.toObject(msg)}, true);
+            assert(false);
+        } catch(error) {
+            assert(error.message.includes("Assert Failed"));
+        }
     });
 });
