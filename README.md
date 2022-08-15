@@ -10,7 +10,14 @@ Prerequisite:
 
 Refer to [Circom documentation](https://docs.circom.io/getting-started/installation/) to install prerequisite dependencies. 
 
-The circuit templates are located in the `circuits` directory. To compile a circuit, run `circom <path_to_circom_file> --r1cs --wasm --sym`.
+The circuit templates are located in the `circuits` directory. To compile a circuit, run `circom <path_to_circom_file> --r1cs --wasm --sym`. This will generate a directory ending with `_js`.
+
+#### Generating a Witness
+
+In the `_js` directory, generate a witness through running the command: 
+```node generate_witness.js <compile_circom_name>.wasm input.json witness.wtns```
+
+The `input.json` file should contain the inputs for the circuits. Example scripts that could help generate this file is in the `scripts` directory.
 
 #### Generating a Proof
 
