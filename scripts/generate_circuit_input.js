@@ -1,31 +1,37 @@
-import fs from "fs";
-import { buildEddsa, buildBabyjub } from "circomlibjs";
+const fs = require("fs");
+const buildEddsa = require("circomlibjs").buildEddsa;
+const buildBabyjub = require("circomlibjs").buildBabyjub;
 
-const eddsa = await buildEddsa();
-const babyjub = await buildBabyjub();
-let F = babyjub.F;
+async function main() {
 
-const message = F.e(123);
-const prvKey = Buffer.from('1'.toString().padStart(64,'0'), "hex");
-const pubKey = eddsa.prv2pub(prvKey);
+    const eddsa = await buildEddsa();
+    const babyjub = await buildBabyjub();
+    let F = babyjub.F;
 
-// sign using private key
-const signature = eddsa.signMiMC(prvKey, message);
+    const message = F.e(123);
+    const prvKey = Buffer.from('1'.toString().padStart(64,'0'), "hex");
+    const pubKey = eddsa.prv2pub(prvKey);
 
-console.log("signature: ", signature);
-console.log("verified: ", eddsa.verifyMiMC(message, signature, pubKey));
+    // sign using private key
+    const signature = eddsa.signMiMC(prvKey, message);
 
-const inputs = {
-    "from_x": F.toObject(pubKey[0]).toString(),
-    "from_y": F.toObject(pubKey[1]).toString(),
-    "R8x": F.toObject(signature['R8'][0]).toString(),
-    "R8y": F.toObject(signature['R8'][1]).toString(),
-    "S": signature['S'].toString(),
-    "M": F.toObject(message).toString()
+    console.log("signature: ", signature);
+    console.log("verified: ", eddsa.verifyMiMC(message, signature, pubKey));
+
+    const inputs = {
+        "from_x": F.toObject(pubKey[0]).toString(),
+        "from_y": F.toObject(pubKey[1]).toString(),
+        "R8x": F.toObject(signature['R8'][0]).toString(),
+        "R8y": F.toObject(signature['R8'][1]).toString(),
+        "S": signature['S'].toString(),
+        "M": F.toObject(message).toString()
+    }
+
+    fs.writeFileSync(
+        "./input.json",
+        JSON.stringify(inputs),
+        "utf-8"
+    );
 }
 
-fs.writeFileSync(
-    "./input.json",
-    JSON.stringify(inputs),
-    "utf-8"
-);
+main();
