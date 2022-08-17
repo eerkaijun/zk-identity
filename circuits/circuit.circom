@@ -5,11 +5,14 @@ include "../node_modules/circomlib/circuits/comparators.circom";
 
 template VerifySignature() {
 
+    // public key
     signal input from_x;
     signal input from_y;
+    // signature
     signal input R8x;
     signal input R8y;
     signal input S;
+    // message
     signal input M;
 
     component verifier = EdDSAMiMCVerifier();
@@ -28,4 +31,4 @@ template VerifySignature() {
     compare.out === 1;
 }
 
-component main {public [from_x, from_y, R8x, R8y, S, M]} = VerifySignature();
+component main {public [from_x, from_y, R8x, R8y, S]} = VerifySignature();

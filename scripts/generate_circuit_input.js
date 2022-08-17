@@ -8,7 +8,7 @@ async function main() {
     const babyjub = await buildBabyjub();
     let F = babyjub.F;
 
-    const message = F.e(123);
+    const message = F.e(900);
     const prvKey = Buffer.from('1'.toString().padStart(64,'0'), "hex");
     const pubKey = eddsa.prv2pub(prvKey);
 
