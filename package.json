@@ -21,6 +21,7 @@
     "snarkjs": "^0.4.24"
   },
   "devDependencies": {
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
     "chai": "^4.3.6",
     "circom_tester": "^0.0.14",
     "hardhat": "^2.10.2",
