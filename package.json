@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/eerkaijun/zk-identity#readme",
   "dependencies": {
+    "@openzeppelin/contracts": "^4.7.3",
     "circomlib": "^2.0.5",
     "circomlibjs": "^0.1.7",
     "snarkjs": "^0.4.24"
