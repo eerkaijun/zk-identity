@@ -12,6 +12,7 @@ describe("Smart contract verifier", function () {
 
     it("Should be able to verify ZK proof", async () => {
 
+        // generated through "snarkjs generatecall"
         const a = ["0x144231e6a8654104f5b3f2fd2db8ec669e5f1d072e10c61b95be25957daacdd7", "0x22e08a0842bece4ab2871f38a30232f2816ca5da67e3938b225b3cf5f0227b63"]
         const b = [
             ["0x1c89c25f82c17549e0edf2d9fefdc8f96e308999b8f4944db20cb5b72623be14", "0x1abf8501a26df4e379cbe892b6b918d47969c8c999b202f2988a7725eb132642"],
